@@ -10,6 +10,7 @@ import Spinner from "../Spinner";
 export default class Feed extends Component {
 
   state = {
+    isSpinning: true,
     posts: [
       {
         id: '123',
@@ -26,7 +27,7 @@ export default class Feed extends Component {
 
   render() {
 
-    const {posts} = this.state;
+    const {posts, isSpinning} = this.state;
 
     const postsJSX = posts.map((post) => {
       return <Post key={post.id} {...post}/>;
@@ -34,7 +35,7 @@ export default class Feed extends Component {
 
     return (
       <section className={Styles.feed}>
-        <Spinner isSpinning/>
+        <Spinner isSpinning={ isSpinning }/>
         <StatusBar/>
         <Composer/>
         {postsJSX}
