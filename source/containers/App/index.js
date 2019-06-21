@@ -8,7 +8,7 @@ import avatar from '../../theme/assets/lisa.png';
 const options = {
   avatar,
   currentUserFirstName: 'Lisa',
-  CurrentUserLastName: 'Simpson'
+  currentUserLastName: 'Simpson'
 }
 
 @hot(module)
