@@ -7,8 +7,8 @@ const portal = document.getElementById('spinner');
 
 export default class Spinner extends Component {
   render () {
-    const {isSpinning} = this.props;
+    const { isPostsFetching } = this.props;
 
-    return isSpinning ? createPortal( <div className={ Styles.spinner} />, portal ) : null;
+    return isPostsFetching ? createPortal( <div className={ Styles.spinner} />, portal ) : null;
   }
 }
