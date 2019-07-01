@@ -50,6 +50,7 @@ export default class Feed extends Component {
       id: getUniqueID(),
       created: moment().unix(),
       comment,
+      likes: [],
     };
 
     await delay(1200);
