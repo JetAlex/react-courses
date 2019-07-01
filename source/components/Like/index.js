@@ -7,7 +7,7 @@ export default class Like extends Component {
 
   static propTypes = {
     _likePost: func.isRequired,
-    id: number.isRequired,
+    id: string.isRequired,
     likes: arrayOf(
       shape({
         id: string.isRequired,

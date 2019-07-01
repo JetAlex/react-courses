@@ -17,19 +17,20 @@ export default class Feed extends Component {
     this._createPost = this._createPost.bind(this);
     this._setPostsFetchingState = this._setPostsFetchingState.bind(this);
     this._likePost = this._likePost.bind(this);
+    this._removePost = this._removePost.bind(this);
   }
 
   state = {
     isPostsFetching: false,
     posts: [
       {
-        id: 123,
+        id: '123',
         comment: 'Hi There!',
         created: 1526825076849,
         likes: [],
       },
       {
-        id: 456,
+        id: '456',
         comment: 'Hello!',
         created: 1526825076855,
         likes: [],
@@ -88,7 +89,19 @@ export default class Feed extends Component {
     this.setState({
       posts: newPosts,
       isPostsFetching: false,
+    })
+  }
 
+  async _removePost(id) {
+    this._setPostsFetchingState(true);
+
+    await delay(1200);
+
+    const newPosts = this.state.posts.filter(post => post.id !== id);
+
+    this.setState({
+      posts: newPosts,
+      isPostsFetching: false,
     })
   }
 
@@ -97,7 +110,14 @@ export default class Feed extends Component {
     const {posts, isPostsFetching} = this.state;
 
     const postsJSX = posts.map((post) => {
-      return <Post key={post.id} {...post} _likePost = { this._likePost.bind(post.id) } />;
+      return (
+        <Post
+          key={post.id}
+          {...post}
+          _likePost = { this._likePost }
+          _removePost = { this._removePost }
+        />
+      );
     });
 
     return (
