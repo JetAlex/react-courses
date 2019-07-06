@@ -162,8 +162,11 @@ export default class Feed extends Component {
         <CSSTransition
           classNames={{
             enter: Styles.postInStart,
-            enterActive: Styles.postInEnd
+            enterActive: Styles.postInEnd,
+            exit: Styles.postOutStart,
+            exitActive: Styles.postOutEnd,
           }}
+          unmountOnExit
           key={post.id}
           timeout={{
             enter: 500,
