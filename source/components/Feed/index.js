@@ -12,6 +12,7 @@ import {withProfile} from '../../components/HOC/withProfile';
 import {api, TOKEN, GROUP_ID} from '../../config/api';
 import {socket} from '../../socket/init';
 import Postman from "../Postman";
+import Counter from '../Counter';
 
 @withProfile
 export default class Feed extends Component {
@@ -195,6 +196,7 @@ export default class Feed extends Component {
         >
           <Composer _createPost={this._createPost}/>
         </Transition>
+        <Counter count={postsJSX.length}/>
         <Postman/>
         <TransitionGroup>
           {postsJSX}
