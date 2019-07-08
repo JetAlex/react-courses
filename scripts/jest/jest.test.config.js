@@ -22,6 +22,7 @@ module.exports = {
     moduleFileExtensions: [ 'js', 'json', 'css' ],
     setupFiles:           [ '<rootDir>/scripts/jest/scripts/setupFiles.js' ],
     setupFilesAfterEnv:   [ '<rootDir>/scripts/jest/scripts/setupEnzymeEnvironment.js' ],
+
     snapshotSerializers:  [ 'enzyme-to-json/serializer' ],
     moduleNameMapper:     {
         '\\.(css|m.css)$':                                                                     'identity-obj-proxy',
