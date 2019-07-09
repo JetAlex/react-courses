@@ -1,9 +1,11 @@
 import React from 'react';
-import {mount, configure} from 'enzyme';
+import {mount} from 'enzyme';
 import {Composer} from './';
 
 const props = {
   _createPost: jest.fn(),
+  currentUserFirstName: 'currentUserFirstName_string',
+  avatar: 'AVATAR_URL_string'
 };
 
 const comment = 'Merry christmas';
@@ -36,6 +38,10 @@ describe('Composer component:', () => {
 
   test('should have 1 <input> element', () => {
     expect(result.find('input')).toHaveLength(1);
+  });
+
+  test(' <input> element should have value Post', () => {
+    expect(result.find('input').prop('value')).toBe('Post');
   });
 
   test('should have 1 <img> element', () => {
@@ -89,6 +95,31 @@ describe('Composer component:', () => {
 
   test('_submitComment and _handleFormSubmit class methods should be invoked once after form is submitted', () => {
     expect(_submitCommentSpy).toHaveBeenCalledTimes(1);
+    expect(_handleFormSubmitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test('_updateComment should change state properly', () => {
+    result.find('textarea').simulate('change', {
+      target: {
+        value: comment,
+      }
+    });
+
+    expect(result.state()).toEqual(updatedState);
+  });
+
+  test('_submitOnEnter should invoke _submitComment', () => {
+
+    result.find('textarea').simulate('change', {
+      target: {
+        value: comment,
+      }
+    });
+
+    result.find('textarea').simulate('keypress', {key: 'Enter'});
+
+    expect(result.state()).toEqual(initialState);
+
     expect(_handleFormSubmitSpy).toHaveBeenCalledTimes(1);
   });
 });
