@@ -8,26 +8,75 @@ import {Provider} from '../../components/HOC/withProfile';
 
 import avatar from '../../theme/assets/lisa.png';
 import Profile from "../../components/Profile";
+import Login from "../../components/Login";
 import StatusBar from "../../components/StatusBar";
-
-const options = {
-  avatar,
-  currentUserFirstName: 'Алексей',
-  currentUserLastName: 'Дьяченко'
-};
 
 @hot(module)
 export default class App extends Component {
+
+  state = {
+    user: {},
+    isLoggedIn: false,
+  };
+
+  _logIn = (currentUserFirstName, currentUserLastName) => {
+    this.setState({
+      user: {
+        currentUserFirstName,
+        currentUserLastName,
+        avatar,
+      },
+      isLoggedIn: true
+    });
+  };
+
+  _logOut = () => {
+    this.setState({
+      user: {},
+      isLoggedIn: false
+    })
+  };
+
+  getRoutes() {
+    const {isLoggedIn} = this.state;
+
+    return isLoggedIn ? (
+      <Switch>
+        <Route component={Feed} path='/feed'/>
+        <Route component={Profile} path='/profile'/>
+        <Redirect to='/feed'/>
+      </Switch>
+    ) : (
+      <Switch>
+        <Route
+          exact
+          render={() => (
+            <Login
+              logIn={this._logIn}
+              logOut={this._logOut}
+            />
+          )}
+          path='/'
+        />
+        <Redirect to='/'/>
+      </Switch>
+    );
+  }
+
   render() {
+
+    const {user} = this.state;
+
     return (
       <Catcher>
-        <Provider value={options}>
+        <Provider
+          value={{
+            ...user,
+            logOut: this._logOut
+          }}
+        >
           <StatusBar/>
-          <Switch>
-            <Route component={Feed} path='/feed'/>
-            <Route component={Profile} path='/profile'/>
-            <Redirect to='/feed'/>
-          </Switch>
+          {this.getRoutes()}
         </Provider>
       </Catcher>
     )

@@ -38,9 +38,25 @@ export default class StatusBar extends Component {
     fromTo(statusBar, 1, {opacity: 0}, {opacity: 1});
   };
 
-  render() {
+  getLinks() {
+    const {currentUserFirstName, currentUserLastName, avatar, logOut} = this.props;
 
-    const {avatar, currentUserFirstName} = this.props;
+    return currentUserFirstName && currentUserLastName ? (
+      <>
+        <Link to = '/profile'>
+          {avatar ? <img src={avatar}/> : null}
+          <span>{currentUserFirstName}</span>
+        </Link>
+        <Link to = '/feed'>Feed</Link>
+
+        <button onClick={logOut}>
+          Log Out
+        </button>
+      </>
+    ) : null;
+  }
+
+  render() {
     const {online} = this.state;
 
     const statusStyle = cx(Styles.status, {
@@ -62,11 +78,7 @@ export default class StatusBar extends Component {
             <div>{statusMessage}</div>
             <span/>
           </div>
-          <Link to = '/profile'>
-            <img src={avatar}/>
-            <span>{currentUserFirstName}</span>
-          </Link>
-          <Link to = '/feed'>Feed</Link>
+          {this.getLinks()}
         </section>
       </Transition>
     )
