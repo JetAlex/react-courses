@@ -187,7 +187,6 @@ export default class Feed extends Component {
     return (
       <section className={Styles.feed}>
         <Spinner isPostsFetching={isPostsFetching}/>
-        <StatusBar/>
         <Transition
           appear
           in
